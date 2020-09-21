@@ -84,10 +84,23 @@
     display: table;
     clear: both;
   }
+
+  .alineacionImg {
+    float: left; /*Haremos que se vayan a la izquierda*/
+    width: 33.3%;
+    padding: 20px;
+  }
+
+  .alineacionImg img {
+    width: 100%;
+  }
   
   /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
   @media screen and (max-width: 600px) {
-    .column.side, .column.middle {
+    .column.left, .column.right,
+    .topnav a {
       width: 100%;
     }
   }
+
+  /* 15:41 */
