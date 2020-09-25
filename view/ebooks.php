@@ -29,30 +29,34 @@
       <h3>Toda la actualidad en eBook</h3>
 
       <!-- eBooks con descripción -->
-      <div class="ebook">
+      <!-- <div class="ebook">
         <a href="https://books.google.es/books/about/El_drag%C3%B3n_rojo_Hannibal_Lecter_1.html?id=3QJhKj-fzycC&redir_esc=y">
           <img src="../img/dragon-rojo.jpg" alt="ebook 1">
           <div>Por el autor de El silencio de los corderos y...</div>
         </a>
-      </div>
-      <div class="ebook">
-        <a href="https://books.google.es/books/about/El_silencio_de_los_corderos_Hannibal_Lec.html?id=VuIBDgAAQBAJ&redir_esc=y">
-          <img src="../img/silencio-corderos.jpg" alt="ebook 2">
-          <div>En este potente thriller psicológico, Clarice,...</div>
-        </a>
-      </div>
-      <div class="ebook">
-        <a href="https://books.google.es/books?id=c6U8PgAACAAJ&redir_esc=y">
-          <img src="../img/hannibal.jpg" alt="ebook 3">
-          <div>Hannibal es la última novela de la trilogía...</div>
-        </a>
-      </div>
-      <div class="ebook">
-        <a href="https://books.google.es/books/about/Hannibal_el_origen_del_mal_Hannibal_Lect.html?id=3YInQwFn9JAC&redir_esc=y">
-          <img src="../img/origen-mal.jpg" alt="ebook 4">
-          <div>Thomas Harris, autor de El silencio de los corderos y...</div>
-        </a>
-      </div>
+      </div> -->
+      <?php
+        // 1. Conexión a la BBDD
+        include '../services/connection.php';
+
+        // 2. Selección y muestra de datos de la base de datos
+        $result = mysqli_query($conn, "SELECT Books.Description, Books.img, Books.Title FROM books WHERE eBook !='0'"); // 1, tiene ebook asociado
+
+        if (!empty($result) && mysqli_num_rows($result) > 0) {
+          // datos de salida de cada fila (fila = row)
+          while($row = mysqli_fetch_array($result)) {
+            echo "<div class='ebook'>";
+            // Añadimos la imagen a la página con la etiqueta img de HTML
+            echo "<img src=../img/".$row['img']." alt='".$row['Title']."'>";
+            // Añadimos el título a la página con la etiqueta h2 de HTML
+            echo "<div>".$row['Title']."</div>";
+            echo "</div>";
+          }
+        } else {
+          echo "0 resultados";
+        }
+
+      ?>
 
     </div>
 
