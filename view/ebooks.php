@@ -50,7 +50,7 @@
             // Añadimos la imagen a la página con la etiqueta img de HTML
             echo "<img src=../img/".$row['img']." alt='".$row['Title']."'>";
             // Añadimos el título a la página con la etiqueta h2 de HTML
-            echo "<div>".$row['Title']."</div>";
+            echo "<div class='desc'>".$row['Description']."</div>";
             echo "</div>";
             if($i%3==0) {
               echo "<div style='clear:both;'></div>";
