@@ -41,16 +41,25 @@
 
         // 2. Selección y muestra de datos de la base de datos
         $result = mysqli_query($conn, "SELECT Books.Description, Books.img, Books.Title FROM books WHERE eBook !='0'"); // 1, tiene ebook asociado
-
         if (!empty($result) && mysqli_num_rows($result) > 0) {
+          $i=0;
+          $counter = mysqli_num_rows($result);
           // datos de salida de cada fila (fila = row)
           while($row = mysqli_fetch_array($result)) {
+            $i++;
             echo "<div class='ebook'>";
             // Añadimos la imagen a la página con la etiqueta img de HTML
             echo "<img src=../img/".$row['img']." alt='".$row['Title']."'>";
             // Añadimos el título a la página con la etiqueta h2 de HTML
             echo "<div>".$row['Title']."</div>";
             echo "</div>";
+            if($i%3==0) {
+              echo "<div style='clear:both;'></div>";
+            }
+          
+
+            // https://github.com/dannylarrea/reread-php/tree/dev
+            
           }
         } else {
           echo "0 resultados";
