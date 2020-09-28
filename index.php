@@ -38,7 +38,7 @@
             echo "<p>".$row['Title']."</p>";
           }
         } else {
-          echo "0 resultados";
+          echo "No se han encontrado resultados";
         }
     ?>
   </div>
