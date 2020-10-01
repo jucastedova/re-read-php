@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>CSS Website Layout</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../css/styles.css">
+  <title>CSS Website Layout</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
 
@@ -34,10 +34,17 @@
   
   <div class="column right">
     <h2>Top Ventas</h2>
-    <p>Cien años de soledad.</p>
-    <p>Crónica de una muerte anunciada.</p>
-    <p>El otoño del patriarca.</p>
-    <p>El general en su laberinto.</p>
+    <?php
+        include '../services/connection.php';
+        $result = mysqli_query($conn, "SELECT books.Title FROM books WHERE books.Top = '1'");
+        if (!empty($result) && mysqli_num_rows($result) > 0) {
+          while($row = mysqli_fetch_array($result)) {
+            echo "<p>".$row['Title']."</p>";
+          }
+        } else {
+          echo "No se han encontrado resultados";
+        }
+    ?>
   </div>
 </div>
   

@@ -6,6 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../css/styles.css">
+  <script src="../js/code.js"></script>
 </head>
 
 <body>
@@ -40,10 +41,9 @@
         include '../services/connection.php';
 
         // 2. Selección y muestra de datos de la base de datos
-        $result = mysqli_query($conn, "SELECT Books.Description, Books.img, Books.Title FROM books WHERE eBook !='0'"); // 1, tiene ebook asociado
+        $result = mysqli_query($conn, "SELECT books.Description, books.img, books.Title FROM books WHERE eBook !='0'"); // 1, tiene ebook asociado
         if (!empty($result) && mysqli_num_rows($result) > 0) {
           $i=0;
-          $counter = mysqli_num_rows($result);
           // datos de salida de cada fila (fila = row)
           while($row = mysqli_fetch_array($result)) {
             $i++;
@@ -51,13 +51,11 @@
             // Añadimos la imagen a la página con la etiqueta img de HTML
             echo "<img src=../img/".$row['img']." alt='".$row['Title']."'>";
             // Añadimos el título a la página con la etiqueta h2 de HTML
-            echo "<div>".$row['Title']."</div>";
+            echo "<div class='desc' id='desc".$i."'>".$row['Description']."</div>";
             echo "</div>";
             if($i%3==0) {
               echo "<div style='clear:both;'></div>";
             }
-          
-
             // https://github.com/dannylarrea/reread-php/tree/dev
             
           }
@@ -71,10 +69,16 @@
 
     <div class="column right">
       <h2>Top Ventas</h2>
-      <p>Cien años de soledad.</p>
-      <p>Crónica de una muerte anunciada.</p>
-      <p>El otoño del patriarca.</p>
-      <p>El general en su laberinto.</p>
+      <?php
+        $result = mysqli_query($conn, "SELECT books.Title FROM books WHERE books.Top = '1'");
+        if (!empty($result) && mysqli_num_rows($result) > 0) {
+          while($row = mysqli_fetch_array($result)) { 
+            echo "<p>".$row['Title']."</p>";
+          }
+        } else {
+          echo "No se han encontrado resultados";
+        }
+      ?>
     </div>
   </div>
 
