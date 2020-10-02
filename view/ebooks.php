@@ -37,7 +37,17 @@
           
           <label for="cars">País:</label>
           <select name="pais" id="pais">
-            <option value=""></option>
+            <option value="%">Todos los países</option>;
+            <?php
+              include '../services/connection.php';
+              // Cogemos los valores de los países de la BBDD
+              $query = "SELECT DISTINCT authors.Country from authors";
+              $result = mysqli_query($conn, $query);
+              
+              while($row = mysqli_fetch_array($result)) {
+                echo "<option value='".$row['Country']."'>".$row['Country']."</option>";
+              }
+            ?>
           </select>
         
           <input type="submit" value="Buscar">
@@ -46,7 +56,6 @@
       <!-- Lógica del formulario -->
       <?php
       // 1. Conexión a la BBDD
-      include '../services/connection.php';
       if(isset($_POST['fautor'])) {
         // Filtrará los ebooks que se mostrarán en la página
         // 2. Selección y muestra de datos de la base de datos
