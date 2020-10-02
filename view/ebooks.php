@@ -34,16 +34,11 @@
         <form action="ebooks.php" method="POST">
           <label for="fautor">Nombre del autor:</label>
           <input type="text" id="fautor" name="fautor" placeholder="Introduce el autor...">
-
-          <!-- <label for="lname">Last Name</label>
-          <input type="text" id="lname" name="lastname" placeholder="Your last name..">
-
-          <label for="country">Country</label>
-          <select id="country" name="country">
-            <option value="australia">Australia</option>
-            <option value="canada">Canada</option>
-            <option value="usa">USA</option>
-          </select> -->
+          
+          <label for="cars">País:</label>
+          <select name="pais" id="pais">
+            <option value=""></option>
+          </select>
         
           <input type="submit" value="Buscar">
         </form>
@@ -55,7 +50,12 @@
       if(isset($_POST['fautor'])) {
         // Filtrará los ebooks que se mostrarán en la página
         // 2. Selección y muestra de datos de la base de datos
-        $result = mysqli_query($conn, "SELECT books.Description, books.img, books.Title FROM books WHERE eBook !='0'"); // 1, tiene ebook asociado
+        $query = "SELECT Books.Description, Books.img, 
+        Books.Title FROM Books INNER JOIN BooksAuthors 
+        ON Id=BooksAuthors.BookId INNER JOIN Authors ON
+        Authors.Id = BooksAuthors.AuthorId
+      WHERE Authors.Name LIKE '%{$_POST['fautor']}%'"; // 1, tiene ebook asociado
+        $result = mysqli_query($conn, $query);
       } else {
         // Mostrará todos los ebooks de la BBDD
         // 2. Selección y muestra de datos de la base de datos
