@@ -35,13 +35,13 @@
           <label for="fautor">Nombre del autor:</label>
           <input type="text" id="fautor" name="fautor" placeholder="Introduce el autor...">
           
-          <label for="cars">País:</label>
-          <select name="pais" id="pais">
+          <label for="country">País:</label>
+          <select name="country" id="country">
             <option value="%">Todos los países</option>;
             <?php
               include '../services/connection.php';
               // Cogemos los valores de los países de la BBDD
-              $query = "SELECT DISTINCT authors.Country from authors";
+              $query = "SELECT DISTINCT authors.Country FROM authors ORDER BY Country";
               $result = mysqli_query($conn, $query);
               
               while($row = mysqli_fetch_array($result)) {
@@ -63,7 +63,8 @@
         Books.Title FROM Books INNER JOIN BooksAuthors 
         ON Id=BooksAuthors.BookId INNER JOIN Authors ON
         Authors.Id = BooksAuthors.AuthorId
-      WHERE Authors.Name LIKE '%{$_POST['fautor']}%'"; // 1, tiene ebook asociado
+        WHERE Authors.Name LIKE '%{$_POST['fautor']}%'
+        AND Authors.Country LIKE '{$_POST['country']}' "; 
         $result = mysqli_query($conn, $query);
       } else {
         // Mostrará todos los ebooks de la BBDD
