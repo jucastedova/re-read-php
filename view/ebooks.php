@@ -35,6 +35,9 @@
           <label for="fautor">Nombre del autor:</label>
           <input type="text" id="fautor" name="fautor" placeholder="Introduce el autor...">
           
+          <label for="titulo">Título:</label>
+          <input type="text" id="titulo" name="titulo" placeholder="Introduce el título...">
+
           <label for="country">País:</label>
           <select name="country" id="country">
             <option value="%">Todos los países</option>;
@@ -64,7 +67,7 @@
         ON Id=BooksAuthors.BookId INNER JOIN Authors ON
         Authors.Id = BooksAuthors.AuthorId
         WHERE Authors.Name LIKE '%{$_POST['fautor']}%'
-        AND Authors.Country LIKE '{$_POST['country']}' "; 
+        AND Authors.Country LIKE '{$_POST['country']}' AND Books.Title LIKE '%{$_POST['titulo']}%'"; 
         $result = mysqli_query($conn, $query);
       } else {
         // Mostrará todos los ebooks de la BBDD
